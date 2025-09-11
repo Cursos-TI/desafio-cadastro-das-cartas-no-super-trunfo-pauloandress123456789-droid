@@ -1,0 +1,61 @@
+
+#include <stdio.h>
+#include <string.h>
+#define MAX_CASAS 8
+
+void gera_movimentos_bispo(int casas_bispo[MAX_CASAS][MAX_CASAS], int linha_bispo, int coluna_bispo) {
+    int i, j;
+    for (i = linha_bispo + 1, j = coluna_bispo + 1; i < MAX_CASAS && j < MAX_CASAS; i++, j++) {
+        casas_bispo[i][j] = 1;
+    }
+    for (i = linha_bispo - 1, j = coluna_bispo - 1; i >= 0 && j >= 0; i--, j--) {
+        casas_bispo[i][j] = 1;
+    }
+    for (i = linha_bispo - 1, j = coluna_bispo + 1; i >= 0 && j < MAX_CASAS; i--, j++) {
+        casas_bispo[i][j] = 1;
+    }
+    for (i = linha_bispo + 1, j = coluna_bispo - 1; i < MAX_CASAS && j >= 0; i++, j--) {
+        casas_bispo[i][j] = 1;
+    }
+}
+
+void mostra_movimentos_bispo(int casas_bispo[MAX_CASAS][MAX_CASAS], int linha_bispo, int coluna_bispo) {
+    int i, j;
+    for (i = 0; i < MAX_CASAS; i++) {
+        printf("%3d |", i + 1);
+        for (j = 0; j < MAX_CASAS; j++) {
+            if(i == linha_bispo && j == coluna_bispo) {
+                printf(" o ");
+            } else {
+                printf(" %c ", casas_bispo[i][j] == 1 ? 'x' : '-');
+            }
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int linha, coluna;
+
+    printf("Movimento de um bispo no xadrez\n");;
+    printf("Digite a linha que o bispo se encontra: ");
+    scanf("%d", &linha);
+    printf("Digite a coluna que o bispo se encontra: ");
+    scanf("%d", &coluna);
+
+    printf("\nMovimentos possiveis:\n\n");
+    printf("      1  2  3  4  5  6  7  8  \n");
+    printf("   -------------------------\n");
+
+    int casas_bispo[MAX_CASAS][MAX_CASAS];
+    memset(casas_bispo, 0, sizeof(casas_bispo)); //inicializa a zeros
+    linha--; //ajusta para array que começa em 0
+    coluna--; //ajusta para array que começa em 0
+
+    gera_movimentos_bispo(casas_bispo, linha, coluna);
+    mostra_movimentos_bispo(casas_bispo, linha, coluna);
+    return 0;
+}
+
+
+
